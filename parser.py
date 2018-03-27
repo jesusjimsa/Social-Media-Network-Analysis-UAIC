@@ -6,7 +6,7 @@ import sys
 try:
 	headlines_file = open("./scrapped/headlines.csv", 'r')
 	parsed_file = open("./parsed_headlines.csv", 'wr')
-	ignored_words_file = open("./words/ignore.txt", 'r')
+	ignored_words_file = open("./words_to_ignore/ignore.txt", 'r')
 except IOError:
 	print "Could not open file"
 	sys.exit()
