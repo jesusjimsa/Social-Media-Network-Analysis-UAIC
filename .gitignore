@@ -238,5 +238,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Added by me
+./.vscode
+
 
 # End of https://www.gitignore.io/api/c++,linux,macos,python,windows,visualstudiocode
