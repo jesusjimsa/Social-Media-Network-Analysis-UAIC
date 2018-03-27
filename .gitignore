@@ -240,6 +240,7 @@ $RECYCLE.BIN/
 
 # Added by me
 ./.vscode
+settings.json
 
 
 # End of https://www.gitignore.io/api/c++,linux,macos,python,windows,visualstudiocode
