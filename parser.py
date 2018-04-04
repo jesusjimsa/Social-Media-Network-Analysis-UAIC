@@ -7,6 +7,7 @@ try:
 	headlines_file = open("./scrapped/headlines.csv", 'r')
 	parsed_file = open("./parsed_headlines.csv", 'wr')
 	ignored_words_file = open("./words_to_ignore/ignore.txt", 'r')
+	grouped_file = open("./grouped_headlines.csv", 'wr')
 except IOError:
 	print "Could not open file"
 	sys.exit()
@@ -52,3 +53,20 @@ for elem in counted_words:
 
 parsed_file.close()
 headlines_file.close()
+
+common = dict()
+
+for elem in counted_words:
+	all_common = list()
+
+	for check in counted_words:
+		if elem[0:4] == check[0:4]:
+			all_common.append(check)
+	
+	common[elem] = all_common
+
+for elem in common:
+	to_write = str(elem) + ", " + str(common[elem]) + "\n"
+	grouped_file.write(to_write)
+
+grouped_file.close()
