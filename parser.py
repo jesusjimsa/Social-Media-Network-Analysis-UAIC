@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import re
 import sys
+import pdb; 
 
 try:
 	headlines_file = open("./scrapped/headlines.csv", 'r')
@@ -11,6 +12,8 @@ try:
 except IOError:
 	print "Could not open file"
 	sys.exit()
+
+punctuation = (',', '.', '\"', '-', '_', '{', '}', '[', ']', '+', '*', '!', '¡', 'º', 'ª', '\\', '·', '$', '%', '&', '/', '(', ')', '=', '?', '¿', '\'', '€', '<', '>', ';', ':', '–', '—', '…', '«', '»', '‘', '’', '\'')
 
 ignore_words = ignored_words_file.readlines()	# List of words we have to ignore
 ignored_words_file.close()
@@ -29,13 +32,21 @@ while line:
 	for i in range(1, len(words)):
 		if words[i] not in ignore_words:
 			list_of_links = list()
+			# pdb.set_trace()
+			# First of all, we correct any possible punctuation mark 
+			# that split may have missed
+			for j in range(0, 3):
+				if words[i][-1:] in punctuation:
+					words[i] = str(words[i][:-1])
+				if len(words[i]) > 0 and words[i][0] in punctuation:
+					words[i] = str(words[i][1:])
 
 			if words[i] in counted_words:
 				list_of_links = counted_words[words[i]][0]
 
 				if link not in list_of_links:
 					list_of_links.append(link)
-				
+
 				# If the word is already in the dictionary, we just change the number of times it appears
 				counted_words[words[i]] = (list_of_links, counted_words[words[i]][1] + 1)
 			else:
@@ -44,8 +55,8 @@ while line:
 				# The dictionaries store the link, the word and the number of times it appears
 				counted_words[words[i]] = (list_of_links, 1)
 
-	
-	line = headlines_file.readline()
+
+	line = headlines_file.readline()	
 
 for elem in counted_words:
 	to_write = str(elem) + ", " + str(counted_words[elem][1]) + ", " + str(counted_words[elem][0]) + "\n"
@@ -62,7 +73,7 @@ for elem in counted_words:
 	for check in counted_words:
 		if elem[0:4] == check[0:4]:
 			all_common.append(check)
-	
+
 	common[elem] = all_common
 
 for elem in common:
