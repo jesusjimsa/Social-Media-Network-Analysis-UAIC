@@ -117,9 +117,12 @@ for elem in counted_words:
 
 counted_words_list.sort(lambda x, y: cmp(y[1], x[1]))
 
-for elem in counted_words_list:
-	to_write = str(elem[0]) + ", " + str(elem[1]) + ", " + str(elem[2]) + "\n"
-	parsed_file.write(to_write)
+#for elem in counted_words_list:
+#	to_write = str(elem[0]) + ", " + str(elem[1]) + ", " + str(elem[2]) + "\n"
+#	parsed_file.write(to_write)
+
+for ppp in accepted:
+	parsed_file.write(str(str(ppp) + "\n"))
 
 parsed_file.close()
 headlines_file.close()
